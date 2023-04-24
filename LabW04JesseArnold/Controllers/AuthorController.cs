@@ -56,14 +56,14 @@ namespace LabW04JesseArnold.Controllers
 
             if (book == null)
             {
-                return RedirectToAction(nameof(BookController.Index));
+              //  return RedirectToAction(nameof(BookController.Index));
             }
 
             var author = await _authorRepo.ReadAsync(authorId);
 
             if (author == null)
             {
-                return RedirectToAction(nameof(BookController.Details), new { id = bookId });
+              //  return RedirectToAction(nameof(BookController.Details), new { id = bookId });
             }
 
             var model = new EditAuthorVM

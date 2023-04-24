@@ -31,6 +31,10 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}/{authorId?}");
-
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(
+    name: "edit_author",
+    pattern: "author/edit/{id}",
+    defaults: new { controller = "Author", action = "Edit" }
+);
 app.Run();
