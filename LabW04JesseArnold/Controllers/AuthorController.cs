@@ -52,24 +52,26 @@ namespace LabW04JesseArnold.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit([Bind("bookId")] int bookId, int authorId)
         {
-            var book = await _authorRepo.ReadAsync(bookId);
+            var book = await _bookRepository.ReadAsync(bookId);
+
             if (book == null)
             {
-                return RedirectToAction("Index", "Book");
+                return RedirectToAction(nameof(BookController.Index));
             }
 
-            var author = await _authorRepo.ReadAsync(authorId);
+            var author = await _authorRepository.ReadAuthorAsync(authorId);
+
             if (author == null)
             {
-                return RedirectToAction("Details", "Book", new { id = bookId });
+                return RedirectToAction(nameof(BookController.Details), new { id = bookId });
             }
 
             var model = new EditAuthorVM
             {
-                Book = book,
-                Id = author.Id,
+                BookId = book.Id,
+                AuthorId = author.Id,
                 FirstName = author.FirstName,
-                LastName = thi
+                LastName = author.LastName
             };
 
             return View(model);
