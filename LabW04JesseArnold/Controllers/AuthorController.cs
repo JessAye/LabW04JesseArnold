@@ -10,16 +10,16 @@ namespace LabW04JesseArnold.Controllers
 {
     public class AuthorController : Controller
     {
-        private readonly IBookRepository _authorrepository;
+        private readonly IBookRepository _authorRepo;
 
-        public AuthorController(IBookRepository authorrepository)
+        public AuthorController(IBookRepository authorRepo)
         {
-            _authorrepository = authorrepository;
+            _authorRepo = authorRepo;
         }
 
         public async Task<IActionResult> Create(int id)
         {
-            var book = await _authorrepository.ReadAsync(id);
+            var book = await _authorRepo.ReadAsync(id);
 
             if (book == null)
             {
@@ -36,11 +36,11 @@ namespace LabW04JesseArnold.Controllers
             if (ModelState.IsValid)
             {
                 var author = authorVM.GetAuthorInstance();
-                await _authorrepository.CreateAuthorAsync(bookId, author);
+                await _authorRepo.CreateAuthorAsync(bookId, author);
                 return RedirectToAction("Details", "Book", new { id = bookId });
             }
 
-            var book = await _authorrepository.ReadAsync(bookId);
+            var book = await _authorRepo.ReadAsync(bookId);
             if (book == null)
             {
                 return RedirectToAction("Index", "Book");
@@ -49,18 +49,36 @@ namespace LabW04JesseArnold.Controllers
             ViewData["Book"] = book;
             return View(authorVM);
         }
+        [HttpGet]
+        public async Task<IActionResult> Edit([Bind("bookId")] int bookId, int authorId)
+        {
+            var book = await _authorRepo.ReadAsync(bookId);
+            if (book == null)
+            {
+                return RedirectToAction("Index", "Book");
+            }
 
+            var author = await _authorRepo.ReadAsync(authorId);
+            if (author == null)
+            {
+                return RedirectToAction("Details", "Book", new { id = bookId });
+            }
+
+            var model = new EditAuthorVM
+            {
+                Book = book,
+                Id = author.Id,
+                FirstName = author.FirstName,
+                LastName = thi
+            };
+
+            return View(model);
+        }
     }
-    [HttpGet]
-    public async Task<IActionResult> Edit(int bookId, int authorId)
-    {
-        int id = bookId;
-        var book = await _authorreporsitory.Re
-        return View();
-    }
+   
 
 }
 
 
-}
+
 
