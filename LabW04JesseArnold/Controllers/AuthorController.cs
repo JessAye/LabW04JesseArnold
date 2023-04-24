@@ -1,5 +1,6 @@
 ﻿
 using LabW04JesseArnold.Controllers;
+using LabW04JesseArnold.Models.Entities;
 using LabW04JesseArnold.Models.ViewModels;
 using LabW04JesseArnold.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -50,6 +51,15 @@ namespace LabW04JesseArnold.Controllers
         }
 
     }
+    [HttpGet]
+    public async Task<IActionResult> Edit(int bookId, int authorId)
+    {
+        int id = bookId;
+        var book = await _authorreporsitory.Re
+        return View();
+    }
+
+}
 
 
 }
