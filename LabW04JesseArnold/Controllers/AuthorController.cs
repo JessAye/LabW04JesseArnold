@@ -52,14 +52,14 @@ namespace LabW04JesseArnold.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit([Bind("bookId")] int bookId, int authorId)
         {
-            var book = await _bookRepository.ReadAsync(bookId);
+            var book = await _authorRepo.ReadAsync(bookId);
 
             if (book == null)
             {
                 return RedirectToAction(nameof(BookController.Index));
             }
 
-            var author = await _authorRepository.ReadAuthorAsync(authorId);
+            var author = await _authorRepo.ReadAsync(authorId);
 
             if (author == null)
             {
@@ -68,10 +68,8 @@ namespace LabW04JesseArnold.Controllers
 
             var model = new EditAuthorVM
             {
-                BookId = book.Id,
-                AuthorId = author.Id,
-                FirstName = author.FirstName,
-                LastName = author.LastName
+                Book = book,
+                Id = author.Id,
             };
 
             return View(model);

@@ -32,7 +32,6 @@
                 <input asp-for="NumberOfAuthors" class="form-control" readonly />
                 <span asp-validation-for="NumberOfAuthors" class="text-danger"></span>
             </div>
-           
         </form>
     </div>
 </div>
@@ -82,7 +81,8 @@
 }
 
 
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
