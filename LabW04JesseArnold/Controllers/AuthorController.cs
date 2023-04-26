@@ -53,24 +53,19 @@ namespace LabW04JesseArnold.Controllers
 
             if (book == null)
             {
-                //  return RedirectToAction(nameof(BookController.Index));
+                 return RedirectToAction(nameof(BookController.Index));
             }
 
             // var author = editAuthorVM.GetAuthorInstance();
 
-            /*
-            var authors = new Author[book.Authors.Count+1];
-            book.Authors.CopyTo(authors, 0);
-            var author = authors[authorId];
-            */
-
+           
             List<Author> authors = book.Authors.ToList();
           var author =   authors.FirstOrDefault(x => x.Id == authorId);
                
 
             if (author == null)
             {
-                //  return RedirectToAction(nameof(BookController.Details), new { id = bookId });
+                return RedirectToAction(nameof(BookController.Index));
             }
 
             var model = new EditAuthorVM
