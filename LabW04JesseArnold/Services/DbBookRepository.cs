@@ -1,4 +1,5 @@
 ﻿using LabW04JesseArnold.Models.Entities;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace LabW04JesseArnold.Services
@@ -58,6 +59,28 @@ namespace LabW04JesseArnold.Services
 
             await _db.SaveChangesAsync();
             return currentAuthor;
+        }
+        public async Task<Author> DeleteAuthorAsync( int bookId, int authorId)
+        {
+
+            var book = await _db.Books
+                .Include(b => b.Authors)
+                .SingleOrDefaultAsync(b => b.Id == bookId);
+
+            if (book == null)
+            {
+                throw new ArgumentException($"book with id{bookId}");
+
+            }
+            var authorToDelete = book.Authors.SingleOrDefault(a => a.Id == authorId);
+
+            if (authorToDelete == null)
+            {
+                throw new ArgumentException($"there is no author with id of {authorId} in the book with bookId of: {bookId}");
+            }
+            book.Authors.Remove(authorToDelete);
+            await _db.SaveChangesAsync();
+            return authorToDelete;
         }
     }
 }

@@ -12,6 +12,6 @@ namespace LabW04JesseArnold.Models.Entities
         [Required]
         public int PublicationYear { get; set; }
 
-        public List<Author> Authors { get; set; } = new List<Author>();
+        public ICollection<Author> Authors { get; set; } = new List<Author>();
     }
 }

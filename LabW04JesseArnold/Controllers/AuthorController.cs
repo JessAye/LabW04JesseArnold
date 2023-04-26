@@ -2,7 +2,6 @@
 using LabW04JesseArnold.Models.ViewModels;
 using LabW04JesseArnold.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace LabW04JesseArnold.Controllers
 {
@@ -30,11 +29,11 @@ namespace LabW04JesseArnold.Controllers
         public async Task<IActionResult> Create(int bookId, CreateAuthorVM authorVM)
         {
             if (!ModelState.IsValid)
-            { 
+            {
                 return View(authorVM);
             }
             var book = await _authorRepo.ReadAsync(bookId);
-            if (book == null) 
+            if (book == null)
             {
                 return NotFound();
             }
@@ -107,8 +106,43 @@ namespace LabW04JesseArnold.Controllers
 
             return View(authorVM);
         }
+        public async Task<IActionResult> Delete([Bind(Prefix = "id")] int bookId, int authorId)
+        {
 
+            if (bookId == null || authorId == null)
+            {
+                return RedirectToAction("Index", "Book");
+            }
+            var book = await _authorRepo.ReadAsync(bookId);
+            if (book == null)
+            {
 
+                return RedirectToAction("Index", "Book");
+            }
+            //var author = book.Authors.FirstOrDefault(a => a.Id == authorId);
+            var author = book.Authors.FirstOrDefault(a => a.Id == authorId);
+            if (author == null)
+            {
+                return RedirectToAction("Details", "Book", new { id = bookId });
+            }
+            var model = new DeleteAuthorVM
+            {
+                Book = book,
+                Id = authorId,
+                FirstName = author.FirstName,
+                LastName = author.LastName,
+            };
+            return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int bookId, int authorId)
+        {
+            await _authorRepo.DeleteAuthorAsync(bookId, authorId);
+
+            return RedirectToAction("Details", "Book", new { id = bookId });
+        }
     }
 }
 
