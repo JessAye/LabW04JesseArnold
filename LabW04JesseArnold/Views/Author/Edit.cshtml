@@ -1,10 +1,12 @@
 ﻿@model LabW04JesseArnold.Models.ViewModels.EditAuthorVM
 
 @{
+    var book = (Book)ViewData["Book"];
+
     ViewData["Title"] = $"Editing author of {Model.Book?.Title}";
 }
 
-<h1>Editing author of {Model.Book.Title}</h1>
+<h1>Editing author of @Model.Book.Title</h1>
 
 <hr />
 <div class="row">

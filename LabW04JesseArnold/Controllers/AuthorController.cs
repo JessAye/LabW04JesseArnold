@@ -1,10 +1,7 @@
-﻿
-using LabW04JesseArnold.Controllers;
-using LabW04JesseArnold.Models.Entities;
+﻿using LabW04JesseArnold.Models.Entities;
 using LabW04JesseArnold.Models.ViewModels;
 using LabW04JesseArnold.Services;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol.Core.Types;
 
 namespace LabW04JesseArnold.Controllers
 {
@@ -50,32 +47,34 @@ namespace LabW04JesseArnold.Controllers
             return View(authorVM);
         }
         [HttpGet]
-        public async Task<IActionResult> Edit([Bind("bookId")] int bookId, int authorId)
+        public async Task<IActionResult> Edit([Bind("bookId")] int id, [Bind("authorId")]int authorId, EditAuthorVM editAuthorVM)
         {
-            var book = await _authorRepo.ReadAsync(bookId);
+            var book = await _authorRepo.ReadAsync(id);
 
             if (book == null)
             {
-              //  return RedirectToAction(nameof(BookController.Index));
+                //  return RedirectToAction(nameof(BookController.Index));
             }
 
-            var author = await _authorRepo.ReadAsync(authorId);
-
+            var author = editAuthorVM.GetAuthorInstance();
+            var test = author.FirstName;
             if (author == null)
             {
-              //  return RedirectToAction(nameof(BookController.Details), new { id = bookId });
+                //  return RedirectToAction(nameof(BookController.Details), new { id = bookId });
             }
 
             var model = new EditAuthorVM
             {
                 Book = book,
-                Id = author.Id,
+                Id = authorId,
+                FirstName = author.FirstName,
+                LastName = author.LastName, 
             };
 
             return View(model);
         }
     }
-   
+
 
 }
 
