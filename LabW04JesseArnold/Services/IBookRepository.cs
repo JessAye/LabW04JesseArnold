@@ -11,7 +11,7 @@ namespace LabW04JesseArnold.Services
             Task<Book> CreateAsync(Book book);
             Task<Book> ReadAsync(int id);
         Task<Author> CreateAuthorAsync(int id, Author author);
-        Task<Book> UpdateAuthorAsync(int id, Author updatedAuthor);
+        Task<Author> UpdateAuthorAsync(int id, Author updatedAuthor);
     }
     }
 

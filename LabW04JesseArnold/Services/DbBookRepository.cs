@@ -39,7 +39,7 @@ namespace LabW04JesseArnold.Services
             _db.SaveChanges();
             return author;
         }
-        /*
+        
         public async Task<Author> UpdateAuthorAsync(int bookId, Author author)
         {
             var book = await _db.Books.FindAsync(bookId);
@@ -48,7 +48,7 @@ namespace LabW04JesseArnold.Services
             author.LastName = authorToUpddate.LastName; 
             _db.SaveChanges();
             return authorToUpddate;
-        } */
+        }
 
     }
 }
