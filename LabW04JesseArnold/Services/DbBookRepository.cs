@@ -44,8 +44,10 @@ namespace LabW04JesseArnold.Services
         {
             var book = await _db.Books.FindAsync(bookId);
             var authorToUpddate = author;
-            author.FirstName = authorToUpddate.FirstName;
-            author.LastName = authorToUpddate.LastName; 
+            
+            authorToUpddate.FirstName = author.FirstName;
+            author.LastName = authorToUpddate.LastName;
+            
             _db.SaveChanges();
             return authorToUpddate;
         }

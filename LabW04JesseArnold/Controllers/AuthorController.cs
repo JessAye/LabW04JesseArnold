@@ -2,6 +2,7 @@
 using LabW04JesseArnold.Models.ViewModels;
 using LabW04JesseArnold.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace LabW04JesseArnold.Controllers
 {
@@ -81,11 +82,15 @@ namespace LabW04JesseArnold.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int bookId, EditAuthorVM authorVM) {
+            var book = await _authorRepo.ReadAsync(bookId);
             if (ModelState.IsValid)
-            { 
-           
+            {
+                var author = authorVM.GetAuthorInstance();
+                await _authorRepo.UpdateAuthorAsync(bookId, author);
+                return RedirectToAction("Details", "Book", new { id = bookId });
+
             }
-            return RedirectToAction("Index", "Book");
+           else return RedirectToAction("Index", "Book");
         }
 
         
