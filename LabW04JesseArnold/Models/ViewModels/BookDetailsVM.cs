@@ -15,6 +15,6 @@ namespace LabW04JesseArnold.Models.ViewModels
         [DisplayName("Number of Authors")]
         public int NumberOfAuthors { get; set; }
 
-       public ICollection<Author> Authors { get; set; }
+       public ICollection<Author>? Authors { get; set; }
     }
 }

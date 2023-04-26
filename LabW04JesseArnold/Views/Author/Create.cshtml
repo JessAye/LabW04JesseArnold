@@ -1,7 +1,7 @@
 ﻿@model LabW04JesseArnold.Models.ViewModels.CreateAuthorVM
 
 @{
-    var book = (Book)ViewData["Book"];
+    var book = ViewData["Book"] as Book;
     ViewData["Title"] = "Adding author to '" + book.Title + "'";
 }
 

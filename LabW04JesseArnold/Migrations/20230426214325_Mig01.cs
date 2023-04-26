@@ -5,7 +5,7 @@
 namespace LabW04JesseArnold.Migrations
 {
     /// <inheritdoc />
-    public partial class mig01 : Migration
+    public partial class Mig01 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

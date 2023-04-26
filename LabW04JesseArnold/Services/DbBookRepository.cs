@@ -18,12 +18,10 @@ namespace LabW04JesseArnold.Services
             await _db.SaveChangesAsync();
             return book;
         }
-        public async Task<Book?> ReadAsync(int id)
+        public async Task<Book> ReadAsync(int id)
         {
-
-            return await _db.Books.Include(b => b.Authors).FirstOrDefaultAsync(b => b.Id == id);
-
-
+            var book = await _db.Books.Include(b => b.Authors).FirstOrDefaultAsync(b => b.Id == id);
+            return book;
         }
 
         public async Task<ICollection<Book>> ReadAllAsync()
@@ -39,18 +37,27 @@ namespace LabW04JesseArnold.Services
             _db.SaveChanges();
             return author;
         }
-        
-        public async Task<Author> UpdateAuthorAsync(int bookId, Author author)
-        {
-            var book = await _db.Books.FindAsync(bookId);
-            var authorToUpddate = author;
-            
-            authorToUpddate.FirstName = author.FirstName;
-            author.LastName = authorToUpddate.LastName;
-            
-            _db.SaveChanges();
-            return authorToUpddate;
-        }
 
+        public async Task<Author> UpdateAuthorAsync(int bookId, Author authorToUpdate)
+        {
+            var book = await _db.Books
+                .Include(b => b.Authors)
+                .FirstOrDefaultAsync(b => b.Id == bookId);
+            if (book == null)
+            {
+                throw new ArgumentException($" {bookId} not found");
+            }
+            var currentAuthor = book.Authors.FirstOrDefault(a => a.Id == authorToUpdate.Id);
+            if (currentAuthor == null)
+            {
+                throw new ArgumentException($"bookId {bookId} has no author ");
+            }
+
+            currentAuthor.FirstName = authorToUpdate.FirstName;
+            currentAuthor.LastName = authorToUpdate.LastName;
+
+            await _db.SaveChangesAsync();
+            return currentAuthor;
+        }
     }
 }

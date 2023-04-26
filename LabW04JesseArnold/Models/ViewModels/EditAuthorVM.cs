@@ -1,4 +1,6 @@
 ﻿using LabW04JesseArnold.Models.Entities;
+using System.ComponentModel;
+
 using System.ComponentModel.DataAnnotations;
 
 namespace LabW04JesseArnold.Models.ViewModels
@@ -18,7 +20,8 @@ namespace LabW04JesseArnold.Models.ViewModels
             {
                 Id = this.Id,
                 FirstName = this.FirstName ?? string.Empty,
-                LastName = this.LastName ?? string.Empty
+                LastName = this.LastName ?? string.Empty,
+                Book = Book,
             };
         }
     }
