@@ -39,6 +39,16 @@ namespace LabW04JesseArnold.Services
             _db.SaveChanges();
             return author;
         }
-    
+        /*
+        public async Task<Author> UpdateAuthorAsync(int bookId, Author author)
+        {
+            var book = await _db.Books.FindAsync(bookId);
+            var authorToUpddate = author;
+            author.FirstName = authorToUpddate.FirstName;
+            author.LastName = authorToUpddate.LastName; 
+            _db.SaveChanges();
+            return authorToUpddate;
+        } */
+
     }
 }

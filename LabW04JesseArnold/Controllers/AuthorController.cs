@@ -78,6 +78,15 @@ namespace LabW04JesseArnold.Controllers
 
             return View(model);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int bookId, EditAuthorVM authorVM) {
+            if (ModelState.IsValid)
+            { 
+           
+            }
+            return RedirectToAction("Index", "Book");
+        }
 
         
         
