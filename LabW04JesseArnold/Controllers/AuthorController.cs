@@ -56,8 +56,18 @@ namespace LabW04JesseArnold.Controllers
                 //  return RedirectToAction(nameof(BookController.Index));
             }
 
-            var author = editAuthorVM.GetAuthorInstance();
-            var test = author.FirstName;
+            // var author = editAuthorVM.GetAuthorInstance();
+
+            /*
+            var authors = new Author[book.Authors.Count+1];
+            book.Authors.CopyTo(authors, 0);
+            var author = authors[authorId];
+            */
+
+            List<Author> authors = book.Authors.ToList();
+          var author =   authors.FirstOrDefault(x => x.Id == authorId);
+               
+
             if (author == null)
             {
                 //  return RedirectToAction(nameof(BookController.Details), new { id = bookId });
@@ -73,7 +83,10 @@ namespace LabW04JesseArnold.Controllers
 
             return View(model);
         }
-    }
+
+        
+        
+        }
 
 
 }
